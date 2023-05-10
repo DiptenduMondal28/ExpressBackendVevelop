@@ -1,22 +1,17 @@
 const express=require('express');
 const bodyParser=require('body-parser');
 
+const adminRoutes=require('./admin');
+const shopRoutes=require('./shop')
+
 const app=express();
 app.use(bodyParser.urlencoded({extended:false}));
 
-app.use('/add-product',(req,res,next)=>{
-    //console.log(req);
-    res.send('<form action="/product" method="POST"><input type="text" name="title"><input type="number" name ="size"><button type="submit">Add Product</button></form>');
-});
+app.use('/admin',adminRoutes);
+app.use(shopRoutes);
 
-app.post('/product',(req,res,next)=>{
-    console.log("req body")
-    console.log(req.body);
-    res.redirect('/');
-});
-
-app.use('/',(req,res,next)=>{
-    res.send('<h1>You are using Express!</h1>')
-});
+app.use((req,res,next)=>{
+    res.status(404).send('<h1>page not found<h1>')
+})
 
 app.listen(3000);
