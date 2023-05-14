@@ -2,10 +2,8 @@ const path=require('path');
 const express=require('express');
 const routes=express.Router();
 
-const rootDir=require('../util/path');
+const productController=require('../controllers/products');
 
-routes.get('/contact',(req,res,next)=>{
-    res.sendFile(path.join(rootDir,'views','contact.html'));
-});
+routes.get('/contact',productController.contact);
 
 module.exports=routes;
